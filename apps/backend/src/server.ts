@@ -1,12 +1,26 @@
 import express from "express";
+import env from "./config/env";
+import morgan from "morgan";
+import helmet from "helmet";
+import cors from "cors";
+import cookie_parser from "cookie-parser";
+import { cors_config } from "./config/config";
+import v1_router from "./routers/v1.router";
 
 const app = express();
-const port = 5000;
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from Express!" });
-});
+// Middlewares
+app.use(express.json());
+app.use(morgan("tiny"));
+app.use(helmet());
+app.use(cors(cors_config));
+app.use(cookie_parser());
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+// Security
+app.disable("x-powered-by");
+
+app.use("/api/v1", v1_router);
+
+app.listen(env.PORT, () => {
+  console.log(`Server is running on http://localhost:${env.PORT}`);
 });
