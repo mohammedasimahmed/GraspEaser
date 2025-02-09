@@ -21,5 +21,9 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@langchain/core": "^0.3.39",
+    "@langchain/google-genai": "^0.1.8"
+  }
 }
