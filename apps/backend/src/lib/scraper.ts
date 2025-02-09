@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import cheerio from "cheerio";
+import * as cheerio from "cheerio";
 
 export async function scrape_webpage(url: string) {
   const browser = await puppeteer.launch({ headless: true });

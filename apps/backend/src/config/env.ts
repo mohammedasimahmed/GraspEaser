@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 const env = {
   BACKEND_URL:
     process.env.BACKEND_URL ||
@@ -7,4 +10,5 @@ const env = {
   API_KEY: process.env.API_KEY,
 };
 
+console.log(env);
 export default env;
