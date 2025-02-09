@@ -5,7 +5,7 @@ import helmet from "helmet";
 import cors from "cors";
 import cookie_parser from "cookie-parser";
 import { cors_config } from "./config/config";
-import v1_router from "./routers/v1.router";
+import v1_router from "./routers/versions/v1.router";
 
 const app = express();
 
