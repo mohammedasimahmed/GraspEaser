@@ -1,12 +1,12 @@
 "use client";
 import { responseStateAtom } from '@/atoms/user-input';
-import { useAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import React from 'react'
 import LoadingText from './loading-text';
 
 const ResponseViewer = () => {
 
-  const [responseState, setResponseState] = useAtom(responseStateAtom);
+  const responseState = useAtomValue(responseStateAtom);
   const { loading, recieved, content } = responseState;
 
   if(loading) {
@@ -22,4 +22,4 @@ const ResponseViewer = () => {
   )
 }
 
-export default ResponseViewer
+export default ResponseViewer;
