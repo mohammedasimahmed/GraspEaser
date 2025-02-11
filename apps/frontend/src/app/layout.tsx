@@ -1,4 +1,6 @@
 import "./globals.css";
+import { JotaiProvider } from "@/components/providers";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -6,7 +8,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={``}>{children}</body>
+      <JotaiProvider>
+        <body className={``}>
+            {children}
+        </body>
+      </JotaiProvider>
     </html>
   );
 }
