@@ -2,8 +2,7 @@ import { scrape_webpage } from "./scraper";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import env from "../config/env";
 
-export async function text_content_handler(url: string) {
-  const content: string = await scrape_webpage(url);
+export async function text_content_handler(content: string) {
   const llm = new ChatGoogleGenerativeAI({
     model: "gemini-1.5-pro",
     temperature: 0,
@@ -22,4 +21,10 @@ export async function text_content_handler(url: string) {
   ]);
 
   return ai_response.content.toString();
+}
+
+export async function scrape_page_and_handle_text(url: string) {
+  const content: string = await scrape_webpage(url);
+  const response = await text_content_handler(content);
+  return response;
 }

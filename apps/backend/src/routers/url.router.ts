@@ -1,6 +1,5 @@
 import express from "express";
-import url_handler from "../controllers/url_handler";
-import { text_content_handler } from "../lib/text_content_handler";
+import url_handler from "../controllers/url_handler.controller";
 
 const url_router = express.Router();
 
