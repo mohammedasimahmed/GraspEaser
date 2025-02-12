@@ -1,8 +1,10 @@
 "use client"
 import Button from '@/components/ui/button';
 import React from 'react'
+import { useRouter } from 'next/navigation';
 
 const page = () => {
+    const router = useRouter()
     function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
     }
@@ -32,9 +34,9 @@ const page = () => {
                                 <Button>Sign up</Button>
                             </div>
                             <div className='flex justify-center items-center'>
-                                <p className="text-sm font-light text-center">
-                                    Already have an account? Sign in
-                                </p>
+                                <div className="text-sm font-light text-center flex">
+                                    Already have an account? <p onClick={() => router.push("/signin")} className="cursor-pointer underline ml-1">Sign in</p>
+                                </div>
                             </div>
                         </form>
                     </div>
