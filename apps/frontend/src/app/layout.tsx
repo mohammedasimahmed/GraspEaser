@@ -1,3 +1,4 @@
+import Navbar from "@/components/ui/navbar";
 import "./globals.css";
 import { JotaiProvider } from "@/components/providers";
 
@@ -10,6 +11,7 @@ export default function RootLayout({
     <html lang="en">
       <JotaiProvider>
         <body className={``}>
+          <Navbar />
             {children}
         </body>
       </JotaiProvider>
