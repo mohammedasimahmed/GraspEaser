@@ -13,6 +13,11 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      colors: {
+        trans: {
+          darkblue: "#2255ff44",
+        },
+      },
       animation: {
         aurora: "aurora 60s linear infinite",
       },
@@ -35,7 +40,7 @@ module.exports = {
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
 
   addBase({

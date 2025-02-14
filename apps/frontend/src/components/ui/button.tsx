@@ -6,7 +6,8 @@ const baseClass = 'px-3 py-1 text-sm lg:px-5 lg:py-2 lg:text-medium rounded-lg f
 const variants = {
   'primary': 'bg-violet-600 hover:bg-violet-700 text-white border-2 border-violet-600 hover:bg-violet-700',
   'unselected': 'border-2 border-black text-black',
-  'submit': 'bg-blue-700 text-white hover:bg-blue-800 lg:text-medium'
+  'submit': 'bg-blue-700 text-white hover:bg-blue-800 lg:text-medium',
+  'secondary': 'bg-blue-700 hover:bg-blue-800 text-white border-2 border-blue-700 hover:bg-blue-800'
 };
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
