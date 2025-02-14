@@ -5,6 +5,7 @@ import env from "../config/env";
 import { google_llm_model, remove_temp_file } from "../lib/gen_ai";
 import { generate_prompt } from "../lib/prompts";
 import { UserInputBaseData } from "@repo/common/request";
+import { inputFileSchema } from "@repo/common/zod/input_file";
 import { ApiError } from "../lib/errors/api_error";
 
 const fileManager = new GoogleAIFileManager(env.API_KEY);
@@ -16,6 +17,12 @@ export async function file_handler(
 ) {
   const file = req.file;
   const { options } = req.body as UserInputBaseData;
+  const validate = inputFileSchema.safeParse({ file, options });
+  if (!validate.success) {
+    res.status(HttpStatusCode.BAD_REQUEST).json({
+      message: "Server received data with wrong data type."
+    });
+  }
 
   if (!file || !file.path || !file.filename) {
     const noFileError = new ApiError(

@@ -5,7 +5,10 @@
   "exports": {
     "./request": "./request.ts",
     "./custom": "./custom.d.ts",
-    "./response": "./response.ts"
+    "./response": "./response.ts",
+    "./zod/input_file":"./zod/input_file.ts",
+    "./zod/input_text":"./zod/input_text.ts",
+    "./zod/input_url":"./zod/input_url.ts"
   },
   "devDependencies": {
     "typescript": "^5.7.3"
