@@ -1,0 +1,13 @@
+{
+  "name": "@repo/common",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./request": "./request.ts",
+    "./custom": "./custom.d.ts",
+    "./response": "./response.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
