@@ -6,6 +6,9 @@ export const wordCountAtom = atom<number>(1);
 export type InputTypes = "url" | "text" | "file";
 export const inputTypeAtom = atom<InputTypes>("url");
 
+export type FeedState = "concise" | "detailed" | "simple";
+export const FeedStateAtom = atom<FeedState>("concise")
+
 export type ResponseState = {
   loading: boolean;
   recieved: boolean;

@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '../ui/button';
-
-type FeedState = 'concise' | 'detailed' | 'simple';
+import { FeedState, FeedStateAtom } from '@/atoms/user-input';
+import { useAtom } from 'jotai';
 
 const ResponseTypeHandler = () => {
-  const [feedState, setFeedState] = useState<FeedState>('concise');
+  const [feedState, setFeedState] = useAtom(FeedStateAtom);
 
   const getVariant = (state: FeedState, type: FeedState) => {
     return (state === type) ? 'primary' : 'unselected';
