@@ -14,7 +14,7 @@ const ResponseTypeHandler = () => {
   return (
     <div className=''>
       <div className='mx-auto flex items-center justify-center gap-3'>
-        <Button variant={getVariant(feedState, 'concise')} onClick={() => setFeedState('concise')}>Concise</Button>
+        <Button variant={getVariant(feedState, 'basic')} onClick={() => setFeedState('basic')}>Basic</Button>
         <Button variant={getVariant(feedState, 'detailed')} onClick={() => setFeedState('detailed')}>Detailed</Button>
         <Button variant={getVariant(feedState, 'simple')} onClick={() => setFeedState('simple')}>Simple</Button>
       </div>

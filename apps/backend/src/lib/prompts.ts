@@ -1,7 +1,7 @@
 /*
 Prompt parameters: 
 - word_limit -> 50, 100, 200, 300, 400, 500
-- detail: detailed, concise, simple
+- detail: detailed, basic, simple
 - input_type: text, url, video, photo, document
 */
 
