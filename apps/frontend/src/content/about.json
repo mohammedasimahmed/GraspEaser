@@ -1,0 +1,17 @@
+{
+  "tech_stack": [
+    {
+      "name": "Next.js",
+      "href": "#"
+    },
+    {
+      "name": "Express.js",
+      "href": "#"
+    },
+    {
+      "name": "Turborepo",
+      "href": "#"
+    }
+  ],
+  "description": "Graspeaser is a tool that uses large language models (LLMs) to simplify and explain content like videos, audio, text, URLs, and documents. It’s designed to help people with ADHD and dyslexia better understand information by breaking it down into easy-to-digest explanations. Whether you're learning something new or tackling complex topics, Graspeaser makes it easier to grasp and process."
+}

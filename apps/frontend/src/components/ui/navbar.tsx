@@ -12,7 +12,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="w-full fixed z-20 backdrop-blur-2xl px-6 py-3">
+            <nav className="w-full fixed top-0 z-20 backdrop-blur-2xl px-6 py-3">
                 <div className="w-full flex items-center justify-between">
                     <Link href="/">
                         <div className="text-2xl lg:text-3xl font-semibold">
@@ -22,7 +22,7 @@ const Navbar = () => {
                     {/* Desktop View */}
                     <div className="hidden md:flex flex-1 gap-6 mx-3 justify-center items-center">
                         <Link href="/" className="mr-2 text-lg">Home</Link>
-                        <Link href="/team" className="mr-2 text-lg">Team</Link>
+                        <Link href="/about" className="mr-2 text-lg">About</Link>
                         <Link href="/easer" className="text-lg">Easer</Link>
                     </div>
                     <div className="hidden md:flex">
