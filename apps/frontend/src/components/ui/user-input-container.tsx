@@ -6,9 +6,11 @@ import Button from './button';
 import TextInputContainer from './text-input-container';
 
 const InputContainerMap: Record<InputTypes, React.JSX.Element> = {
-    'url': <UrlInputContainer />,
     'text': <TextInputContainer />,
-    'file': <FileInputContainer />
+    'url': <UrlInputContainer />,
+    'video': <FileInputContainer />,
+    'image': <FileInputContainer />,
+    'document': <FileInputContainer />,
 };
 
 const UserInputContainer = ({ type }: { type: InputTypes }) => {
