@@ -16,12 +16,14 @@ export async function file_handler(
   next: NextFunction,
 ) {
   const file = req.file;
-  const { options } = req.body as UserInputBaseData;
+  const data = req.body;
+  const options = await JSON.parse(data.options)
   const validate = inputFileSchema.safeParse({ file, options });
   if (!validate.success) {
     res.status(HttpStatusCode.BAD_REQUEST).json({
       message: "Server received data with wrong data type."
     });
+    return
   }
 
   if (!file || !file.path || !file.filename) {
