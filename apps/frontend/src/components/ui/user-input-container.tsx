@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 import { FeedStateAtom, inputTypeAtom, InputTypes, possibleWordCounts, responseStateAtom, UserInputProps, wordCountAtom } from "@/atoms/user-input";
 import { useAtom } from 'jotai';
@@ -32,11 +33,11 @@ const UserInputContainer = ({ type }: { type: InputTypes }) => {
     const [video, setVideo] = useState<File>(new File([], ""));
     const [image, setImage] = useState<File>(new File([], ""));
     const [document, setDocument] = useState<File>(new File([], ""));
-    const [inputType, _] = useAtom(inputTypeAtom);
-    const [wordCountIndex, __] = useAtom(wordCountAtom);
+    const [inputType] = useAtom(inputTypeAtom);
+    const [wordCountIndex] = useAtom(wordCountAtom);
     const wordCount = possibleWordCounts[wordCountIndex];
-    const [feedState, ___] = useAtom(FeedStateAtom)
-    const [responseState, setResponseState] = useAtom(responseStateAtom)
+    const [feedState] = useAtom(FeedStateAtom)
+    const [, setResponseState] = useAtom(responseStateAtom)
 
     const inputMap: Record<InputTypes, UserInputProps<string> | UserInputProps<File>> = {
         url: { value: url, setValue: setUrl },
@@ -54,7 +55,7 @@ const UserInputContainer = ({ type }: { type: InputTypes }) => {
         })
         
         let requestBody: FormData | string;
-        let headers: HeadersInit = {};
+        const headers: HeadersInit = {};
         if (classifyMap[type] === "file") {
             const formData = new FormData();
             formData.append("file", inputMap[type].value);

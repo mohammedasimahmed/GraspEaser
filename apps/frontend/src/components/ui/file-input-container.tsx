@@ -14,7 +14,8 @@ const FileInputContainer: React.FC<UserInputProps<File>> = ({ value, setValue })
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.files?.[0]!);
+        const file = event.target.files?.[0];
+        if (file) setValue(file);
     };
     return (
         <div className="flex items-center justify-center w-full">
