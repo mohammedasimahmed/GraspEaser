@@ -49,7 +49,7 @@ const Navbar = () => {
                 {isNavbarOpen && (
                     <div className="md:hidden text-black flex flex-col items-center py-3 mt-3">
                         <Link href="/" className="mb-2 text-xl" onClick={toggleNavbar}>Home</Link>
-                        <Link href="/team" className="mb-2 text-xl" onClick={toggleNavbar}>Team</Link>
+                        <Link href="/about" className="mb-2 text-xl" onClick={toggleNavbar}>About</Link>
                         <Link href="/easer" className="mb-2 text-xl" onClick={toggleNavbar}>Easer</Link>
                         <Link href="/signin" className='mb-2 scale-105' onClick={toggleNavbar}>
                             <Button>Sign in</Button>
