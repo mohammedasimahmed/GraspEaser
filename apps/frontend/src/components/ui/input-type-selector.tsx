@@ -10,7 +10,7 @@ const InputTypeSelector = () => {
 
   return (
     <div className='flex-col flex items-center justify-center w-full'>
-      <div className='mx-auto flex gap-4 font-medium justify-center items-center'>
+      <div className='mx-auto flex flex-wrap gap-4 font-medium justify-center items-center'>
         {
           InputTypesArray.map((value: InputTypes, index: number) => {
             const input_type: string = value === "url" ? value.toUpperCase() : value[0].toUpperCase() + value.slice(1);
