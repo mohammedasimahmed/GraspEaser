@@ -14,7 +14,7 @@ const ResponseViewer = () => {
   }
 
   if(recieved) {
-    return <>{content}</>
+    return <div className='px-8 text-slate-800'>{content}</div>
   }
   
   return (
