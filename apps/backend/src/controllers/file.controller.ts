@@ -20,9 +20,11 @@ export async function file_handler(
   const options = await JSON.parse(data.options)
   const validate = inputFileSchema.safeParse({ file, options });
   if (!validate.success) {
-    res.status(HttpStatusCode.BAD_REQUEST).json({
-      message: "Server received data with wrong data type."
-    });
+    const wrongTypeError = new ApiError(
+      "Server received data with wrong data type",
+      HttpStatusCode.BAD_REQUEST,
+    );
+    next(wrongTypeError)
     return
   }
 
