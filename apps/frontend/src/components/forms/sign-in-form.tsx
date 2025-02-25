@@ -1,12 +1,30 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../ui/button";
+import env from "@/config/env";
 
 const SignInForm = () => {
     const router = useRouter();
-    function handleSubmit(event: React.FormEvent) {
+    const usernameRef = useRef<HTMLInputElement | null>(null);
+    const emailRef = useRef<HTMLInputElement | null>(null);
+    const passwordRef = useRef<HTMLInputElement | null>(null);
+    async function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
+        const response = await fetch(`${env.BACKEND_URL}/api/v1/user/signin`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: usernameRef.current?.value,
+                email: emailRef.current?.value,
+                password: passwordRef.current?.value,
+            })
+        });
+
+        const result = await response.json();
+        console.log(result)
     }
     return (
         <>
@@ -24,6 +42,7 @@ const SignInForm = () => {
                         id="text"
                         className="bg-gray-50 border border-gray-300 rounded-lg w-full p-3"
                         placeholder="Enter Your Username"
+                        ref={usernameRef}
                     />
                 </div>
                 <div className="mb-2">
@@ -39,6 +58,7 @@ const SignInForm = () => {
                         id="email"
                         className="bg-gray-50 border border-gray-300 rounded-lg w-full p-3"
                         placeholder="Enter Your Email"
+                        ref={emailRef}
                     />
                 </div>
                 <div className="mb-2">
@@ -54,6 +74,7 @@ const SignInForm = () => {
                         id="password"
                         placeholder="••••••••"
                         className="bg-gray-50 border border-gray-300 rounded-lg w-full p-3"
+                        ref={passwordRef}
                     />
                 </div>
                 <div className="w-full p-2 flex justify-center items-center">
