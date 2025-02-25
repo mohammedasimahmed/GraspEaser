@@ -1,4 +1,5 @@
 import {
+  UserFormInput,
   UserInputBaseData,
   UserTextInputData,
   UserURLInputData,
@@ -16,4 +17,8 @@ export interface URLRequest extends Express.Request {
 
 export interface TextRequest extends Express.Request {
   body: UserTextInputData;
+}
+
+export interface UserFormRequest extends Express.Request {
+  body: UserFormInput
 }

@@ -18,3 +18,9 @@ export interface UserTextInputData extends UserInputBaseData {
 export interface UserURLInputData extends UserInputBaseData {
   url: string;
 }
+
+export interface UserFormInput {
+  username: string,
+  email: string,
+  password: string
+}
