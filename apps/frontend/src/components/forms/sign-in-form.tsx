@@ -11,7 +11,7 @@ const SignInForm = () => {
     const passwordRef = useRef<HTMLInputElement | null>(null);
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
-        const response = await fetch(`${env.BACKEND_URL}/api/v1/user/signin`, {
+        const response = await fetch(`${env.BACKEND_URL}/api/v1/auth/signin`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
