@@ -5,6 +5,7 @@ import prisma from "../lib/prisma";
 import bcrypt from "bcrypt";
 import { ApiError } from "../lib/errors/api_error";
 import { HttpStatusCode } from "../enums/http_status_code";
+import generateAccessAndRefreshToken from "../lib/generate_access_and_refresh_token";
 
 export async function signin_handler(req: UserFormRequest, res: Response, next: NextFunction) {
     const data = req.body;
@@ -51,7 +52,15 @@ export async function signin_handler(req: UserFormRequest, res: Response, next: 
             return;
         }
 
-        res.status(HttpStatusCode.OK).json({ message: "Login successful", user: existingUser });
+        const { accessToken, refreshToken } = generateAccessAndRefreshToken(existingUser);
+
+        res.cookie('jwt', refreshToken, {
+            httpOnly: true,
+            sameSite:"none", secure: true,
+            maxAge: 24 * 60 * 60 * 1000
+        });
+
+        res.status(HttpStatusCode.OK).json({ user: existingUser, accessToken });
     } catch (error) {
         next(error)
     }
