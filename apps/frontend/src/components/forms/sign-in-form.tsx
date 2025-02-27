@@ -3,16 +3,19 @@ import React, { useRef } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../ui/button";
 import env from "@/config/env";
+import { useAtom } from "jotai";
+import { usernameAtom } from "@/atoms/user-input";
 
 const SignInForm = () => {
     const router = useRouter();
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
+    const [, setUsername] = useAtom(usernameAtom);
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
         try {
-            const response = await fetch(`${env.BACKEND_URL}/api/v1/auth/signin`, {
+            const response  = await fetch(`${env.BACKEND_URL}/api/v1/auth/signin`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -31,6 +34,12 @@ const SignInForm = () => {
 
             const result = await response.json();
             console.log(result)
+
+            const { user, accessToken } = result;
+            sessionStorage.setItem("accessToken", accessToken);
+            
+            setUsername(user.username);
+            router.push("/")
         } catch (error) {
             console.log(error)
         }

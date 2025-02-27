@@ -27,3 +27,5 @@ export const responseStateAtom = atom<ResponseState>({
   recieved: false,
   content: "",
 });
+
+export const usernameAtom = atom<string>("");
