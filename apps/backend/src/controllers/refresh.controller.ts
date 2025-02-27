@@ -15,7 +15,7 @@ export async function refresh_handler(req: Request, res: Response, next: NextFun
     }
     const cookies = req.cookies;
 
-    if (!cookies?.jwt) {
+    if (!cookies?.refresh) {
         const refreshTokenMissing = new ApiError(
             "Refresh token missing in cookies",
             HttpStatusCode.FORBIDDEN
@@ -24,7 +24,7 @@ export async function refresh_handler(req: Request, res: Response, next: NextFun
         return;
     }
 
-    const refreshToken = cookies.jwt;
+    const refreshToken = cookies.refresh;
     try {
         const user = jwt.verify(refreshToken, env.REFRESH_TOKEN_SECRET) as JwtPayload;
 

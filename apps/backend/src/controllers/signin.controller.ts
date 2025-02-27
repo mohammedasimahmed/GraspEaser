@@ -54,7 +54,7 @@ export async function signin_handler(req: UserFormRequest, res: Response, next: 
 
         const { accessToken, refreshToken } = generateAccessAndRefreshToken(existingUser);
 
-        res.cookie('jwt', refreshToken, {
+        res.cookie('refresh', refreshToken, {
             httpOnly: true,
             sameSite:"none", secure: true,
             maxAge: 24 * 60 * 60 * 1000
