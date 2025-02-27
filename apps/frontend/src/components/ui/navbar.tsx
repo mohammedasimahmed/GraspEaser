@@ -2,12 +2,24 @@
 import React, { useState } from 'react'
 import Button from './button'
 import Link from 'next/link'
+import { useAtom } from 'jotai'
+import { usernameAtom } from '@/atoms/user-input'
+import { logoutUser } from '@/lib/logoutUser'
 
 const Navbar = () => {
     const [isNavbarOpen, setisNavbarOpen] = useState(false);
+    const [username, setUsername] = useAtom(usernameAtom);
 
     const toggleNavbar = () => {
         setisNavbarOpen(!isNavbarOpen);
+    }
+
+    const handleLogout = async () => {
+        const dispatchSetUsername: React.Dispatch<React.SetStateAction<string>> = (value) => {
+            setUsername(value);
+        };
+
+        await logoutUser({ setUsername: dispatchSetUsername });
     }
 
     return (
@@ -26,16 +38,26 @@ const Navbar = () => {
                         <Link href="/easer" className="text-lg">Easer</Link>
                     </div>
                     <div className="hidden md:flex">
-                        <Link href="/signin" className='mr-2'>
-                            <Button variant='secondary'>
-                                Sign in
-                            </Button>
-                        </Link>
-                        <Link href="/signup">
-                            <Button variant='secondary'>
-                                Sign up
-                            </Button>
-                        </Link>
+                        {
+                            username ?
+                                <>
+                                    <div className='mr-2 flex justify-center items-center text-xl'>{username}</div>
+                                    <Button variant='secondary' onClick={handleLogout}>Logout</Button>
+                                </>
+                                :
+                                <>
+                                    <Link href="/signin" className='mr-2'>
+                                        <Button variant='secondary'>
+                                            Sign in
+                                        </Button>
+                                    </Link>
+                                    <Link href="/signup">
+                                        <Button variant='secondary'>
+                                            Sign up
+                                        </Button>
+                                    </Link>
+                                </>
+                        }
                     </div>
                     {/* Hamburger Menu for Mobile */}
                     <div className="md:hidden flex items-center">
@@ -51,12 +73,22 @@ const Navbar = () => {
                         <Link href="/" className="mb-2 text-xl" onClick={toggleNavbar}>Home</Link>
                         <Link href="/about" className="mb-2 text-xl" onClick={toggleNavbar}>About</Link>
                         <Link href="/easer" className="mb-2 text-xl" onClick={toggleNavbar}>Easer</Link>
-                        <Link href="/signin" className='mb-2 scale-105' onClick={toggleNavbar}>
-                            <Button>Sign in</Button>
-                        </Link>
-                        <Link href="/signup" onClick={toggleNavbar}>
-                            <Button>Sign up</Button>
-                        </Link>
+                        {
+                            username ?
+                                <>
+                                    <div>{username}</div>
+                                    <Button variant='secondary' onClick={handleLogout}>Logout</Button>
+                                </>
+                                :
+                                <>
+                                    <Link href="/signin" className='mb-2 scale-105' onClick={toggleNavbar}>
+                                        <Button>Sign in</Button>
+                                    </Link>
+                                    <Link href="/signup" onClick={toggleNavbar}>
+                                        <Button>Sign up</Button>
+                                    </Link>
+                                </>
+                        }
                     </div>
                 )}
             </nav>
