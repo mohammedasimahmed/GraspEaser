@@ -29,7 +29,7 @@ export async function refresh_handler(req: Request, res: Response, next: NextFun
         const user = jwt.verify(refreshToken, env.REFRESH_TOKEN_SECRET) as JwtPayload;
 
         const accessToken = jwt.sign({
-            username: user.name,
+            username: user.username,
             email: user.email,
             password: user.password
         }, env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' })
