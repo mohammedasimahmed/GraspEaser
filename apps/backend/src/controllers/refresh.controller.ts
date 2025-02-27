@@ -36,6 +36,26 @@ export async function refresh_handler(req: Request, res: Response, next: NextFun
 
         res.status(HttpStatusCode.OK).json({ accessToken })
     } catch (error) {
-        next(error)
+        if (error instanceof jwt.TokenExpiredError) {
+            const tokenExpiredError = new ApiError(
+                'Refresh token has expired',
+                HttpStatusCode.UNAUTHORIZED
+            );
+            next(tokenExpiredError);
+            return;
+        } else if (error instanceof jwt.JsonWebTokenError) {
+            const tokenInvalidError = new ApiError(
+                'Invalid refresh token',
+                HttpStatusCode.UNAUTHORIZED
+            );
+            next(tokenInvalidError);
+            return;
+        }
+
+        const unknownError = new ApiError(
+            'An error occurred while verifying the refresh token',
+            HttpStatusCode.INTERNAL_SERVER_ERROR
+        );
+        next(unknownError);
     }
 }
