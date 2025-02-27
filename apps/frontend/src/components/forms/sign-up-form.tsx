@@ -11,20 +11,32 @@ const SignUpForm = () => {
     const passwordRef = useRef<HTMLInputElement | null>(null);
     async function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
-        const response = await fetch(`${env.BACKEND_URL}/api/v1/auth/signup`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                username: usernameRef.current?.value,
-                email: emailRef.current?.value,
-                password: passwordRef.current?.value,
-            })
-        });
+        try {
+            const response = await fetch(`${env.BACKEND_URL}/api/v1/auth/signup`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: usernameRef.current?.value,
+                    email: emailRef.current?.value,
+                    password: passwordRef.current?.value,
+                })
+            });
 
-        const result = await response.json();
-        console.log(result)
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Something went wrong during signup');
+            }
+
+            const result = await response.json();
+            console.log(result)
+            console.log(result.message);
+            router.push("/signin");
+
+        } catch (error) {
+            console.log(error)
+        }
     }
     return (
         <>
