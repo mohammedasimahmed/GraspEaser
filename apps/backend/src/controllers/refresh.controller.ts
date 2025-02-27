@@ -34,7 +34,11 @@ export async function refresh_handler(req: Request, res: Response, next: NextFun
             password: user.password
         }, env.ACCESS_TOKEN_SECRET, { expiresIn: '10m' })
 
-        res.status(HttpStatusCode.OK).json({ accessToken })
+        res.status(HttpStatusCode.OK).json({
+            username: user.username,
+            email: user.email,
+            accessToken
+        })
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
             const tokenExpiredError = new ApiError(
