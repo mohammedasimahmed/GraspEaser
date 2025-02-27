@@ -1,12 +1,15 @@
 "use client"
 import React, { useState } from 'react'
-import { FeedStateAtom, inputTypeAtom, InputTypes, possibleWordCounts, responseStateAtom, UserInputProps, wordCountAtom } from "@/atoms/user-input";
+import { FeedStateAtom, inputTypeAtom, InputTypes, possibleWordCounts, responseStateAtom, UserInputProps, usernameAtom, wordCountAtom } from "@/atoms/user-input";
 import { useAtom } from 'jotai';
 import env from '@/config/env';
 import Button from './button';
 import TextInputContainer from './text-input-container';
 import UrlInputContainer from './url-input-container';
 import FileInputContainer from "./file-input-container";
+import { getAccessToken } from '@/lib/getAccessToken';
+import { useRouter } from 'next/navigation';
+import { logoutUser } from '@/lib/logoutUser';
 
 const InputContainerMap: Record<
     InputTypes,
@@ -38,6 +41,11 @@ const UserInputContainer = ({ type }: { type: InputTypes }) => {
     const wordCount = possibleWordCounts[wordCountIndex];
     const [feedState] = useAtom(FeedStateAtom)
     const [, setResponseState] = useAtom(responseStateAtom)
+    const [, setUsername] = useAtom(usernameAtom);
+    const dispatchSetUsername: React.Dispatch<React.SetStateAction<string>> = (value) => {
+        setUsername(value);
+    };
+    const router = useRouter();
 
     const inputMap: Record<InputTypes, UserInputProps<string> | UserInputProps<File>> = {
         url: { value: url, setValue: setUrl },
@@ -47,15 +55,32 @@ const UserInputContainer = ({ type }: { type: InputTypes }) => {
         document: { value: document, setValue: setDocument },
     };
 
+    function handleLogoutAndRedirect() {
+        logoutUser({ setUsername: dispatchSetUsername });
+        setResponseState({
+            loading: false,
+            recieved: false,
+            content: "",
+        })
+        router.push("/signin");
+    }
+
     async function simplifyContent() {
         setResponseState({
             loading: true,
             recieved: false,
             content: "",
         })
-        
+
         let requestBody: FormData | string;
-        const headers: HeadersInit = {};
+        const accessToken = sessionStorage.getItem("accessToken");
+        if (!accessToken) {
+            handleLogoutAndRedirect();
+            return;
+        }
+        const headers: HeadersInit = {
+            authorization: `Bearer ${accessToken}`
+        };
         if (classifyMap[type] === "file") {
             const formData = new FormData();
             formData.append("file", inputMap[type].value);
@@ -85,7 +110,31 @@ const UserInputContainer = ({ type }: { type: InputTypes }) => {
             body: requestBody
         });
 
+        if (!response.ok) {
+            const errorData = await response.json();
+            if (errorData?.invalidToken || errorData?.tokenError) {
+                console.log(errorData.message);
+                handleLogoutAndRedirect();
+                return;
+            }
+            if (errorData?.tokenExpired) {
+                console.log(errorData.message);
+                const accessToken = await getAccessToken({ setUsername: dispatchSetUsername });
+                if (accessToken) {
+                    simplifyContent();
+                }
+                else {
+                    handleLogoutAndRedirect();
+                }
+            }
+
+            throw new Error(errorData.message || 'Something went wrong');
+        }
+
+        console.log(response)
+
         const result = await response.json();
+        console.log(result)
         console.log(result.content_simplified);
         setResponseState({
             loading: false,
