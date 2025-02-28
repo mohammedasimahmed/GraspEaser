@@ -3,12 +3,13 @@ import React, { useState } from 'react'
 import Button from './button'
 import Link from 'next/link'
 import { useAtom } from 'jotai'
-import { usernameAtom } from '@/atoms/user-input'
+import { displayAtom, usernameAtom } from '@/atoms/user-input'
 import { logoutUser } from '@/lib/logoutUser'
 
 const Navbar = () => {
     const [isNavbarOpen, setisNavbarOpen] = useState(false);
     const [username, setUsername] = useAtom(usernameAtom);
+    const [, setDisplay] = useAtom(displayAtom);
 
     const toggleNavbar = () => {
         setisNavbarOpen(!isNavbarOpen);
@@ -18,7 +19,7 @@ const Navbar = () => {
         const dispatchSetUsername: React.Dispatch<React.SetStateAction<string>> = (value) => {
             setUsername(value);
         };
-
+        setDisplay([]);
         await logoutUser({ setUsername: dispatchSetUsername });
     }
 

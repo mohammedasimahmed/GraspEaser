@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { HttpStatusCode } from "../enums/http_status_code";
 import { ApiError } from "../lib/errors/api_error";
 
-export async function logout_handler(req: Request, res: Response, next:NextFunction) {
+export async function logout_handler(req: Request, res: Response, next: NextFunction) {
     if (!req.cookies) {
         const cookieMissing = new ApiError(
             "No cookies found",

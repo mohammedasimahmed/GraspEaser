@@ -16,8 +16,9 @@ const ChatForm = () => {
     const dispatchSetUsername: React.Dispatch<React.SetStateAction<string>> = (value) => {
         setUsername(value);
     };
-    function handleLogoutAndRedirect() {
-        logoutUser({ setUsername: dispatchSetUsername });
+    async function handleLogoutAndRedirect() {
+        setDisplay([])
+        await logoutUser({ setUsername: dispatchSetUsername });
         router.push("/signin");
     }
     async function handleSubmit(event: React.FormEvent) {

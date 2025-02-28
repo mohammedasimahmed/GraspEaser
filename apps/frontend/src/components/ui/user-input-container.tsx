@@ -56,8 +56,9 @@ const UserInputContainer = ({ type }: { type: InputTypes }) => {
         document: { value: document, setValue: setDocument },
     };
 
-    function handleLogoutAndRedirect() {
-        logoutUser({ setUsername: dispatchSetUsername });
+    async function handleLogoutAndRedirect() {
+        setDisplay([])
+        await logoutUser({ setUsername: dispatchSetUsername });
         setResponseState({
             loading: false,
             recieved: false,
