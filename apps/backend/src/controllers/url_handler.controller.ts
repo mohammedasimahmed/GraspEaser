@@ -8,6 +8,7 @@ import { ApiError } from "../lib/errors/api_error";
 async function url_handler(request: URLRequest, response: Response, next: NextFunction) {
   const data = request.body;
   const validate = inputUrlSchema.safeParse(data);
+  const username = request.user?.username;
   if (!validate.success) {
     const wrongTypeError = new ApiError(
       "Server received data with wrong data type",
@@ -19,7 +20,8 @@ async function url_handler(request: URLRequest, response: Response, next: NextFu
   const { url, options } = data;
   const content_simplified: string = await scrape_page_and_handle_text(
     url,
-    options
+    options,
+    username as string
   );
   response.json({
     content_simplified: content_simplified,
