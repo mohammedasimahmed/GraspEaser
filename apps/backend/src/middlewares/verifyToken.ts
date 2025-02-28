@@ -1,11 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { ApiError } from "../lib/errors/api_error";
 import { HttpStatusCode } from "../enums/http_status_code";
-import jwt from "jsonwebtoken"
+import jwt, { JwtPayload } from "jsonwebtoken"
 import env from "../config/env";
+import { UserFormInput } from "@repo/common/request";
+import { AuthenticateRequest } from "@repo/common/custom";
 
-export async function verifyToken(req: Request, res: Response, next: NextFunction) {
-    const token = req.headers.authorization?.split(" ")[1];
+export async function verifyToken(req: AuthenticateRequest, res: Response, next: NextFunction) {
+    const token = req.headers?.authorization?.split(" ")[1];
 
     if (!token) {
         const tokenMissing = new ApiError(
@@ -17,7 +19,13 @@ export async function verifyToken(req: Request, res: Response, next: NextFunctio
     }
 
     try {
-        jwt.verify(token, env.ACCESS_TOKEN_SECRET);
+        const decoded = jwt.verify(token, env.ACCESS_TOKEN_SECRET) as JwtPayload;
+        const user = {
+            username: decoded.username,
+            email: decoded.email,
+            password: decoded.password
+        };
+        req.user = user;
         next();
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
