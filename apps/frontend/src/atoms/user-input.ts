@@ -22,10 +22,14 @@ export type ResponseState = {
   content: string;
 };
 
+export type displayState = string[];
+
 export const responseStateAtom = atom<ResponseState>({
   loading: false,
   recieved: false,
   content: "",
 });
+
+export const displayAtom = atom<displayState>([])
 
 export const usernameAtom = atom<string>("");
