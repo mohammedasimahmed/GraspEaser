@@ -22,3 +22,7 @@ export interface TextRequest extends Express.Request {
 export interface UserFormRequest extends Express.Request {
   body: UserFormInput
 }
+
+export interface AuthenticateRequest extends Express.Request {
+  headers?: { authorization?: string }
+}
