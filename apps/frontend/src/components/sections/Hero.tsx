@@ -2,7 +2,6 @@ import React from "react";
 import { AuroraBackground } from "../ui/aurora-background";
 import herodata from "@/content/hero.json";
 import { FadeInAnimator } from "@/lib/animations";
-import Button from "../ui/button";
 import Link from "next/link";
 
 const Hero = () => {
