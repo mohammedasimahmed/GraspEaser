@@ -37,6 +37,7 @@ const Navbar = () => {
                         <Link href="/" className="mr-2 text-lg">Home</Link>
                         <Link href="/about" className="mr-2 text-lg">About</Link>
                         <Link href="/easer" className="text-lg">Easer</Link>
+                        <Link href="/terms" className="text-lg">Terms</Link>
                     </div>
                     <div className="hidden md:flex">
                         {
@@ -74,6 +75,7 @@ const Navbar = () => {
                         <Link href="/" className="mb-2 text-xl" onClick={toggleNavbar}>Home</Link>
                         <Link href="/about" className="mb-2 text-xl" onClick={toggleNavbar}>About</Link>
                         <Link href="/easer" className="mb-2 text-xl" onClick={toggleNavbar}>Easer</Link>
+                        <Link href="/terms" className="mb-2 text-xl" onClick={toggleNavbar}>Terms</Link>
                         {
                             username ?
                                 <>
