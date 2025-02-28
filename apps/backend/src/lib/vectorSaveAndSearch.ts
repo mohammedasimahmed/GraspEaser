@@ -1,7 +1,7 @@
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { TaskType } from "@google/generative-ai";
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
-import { userMemoryStoreMap } from "./user_memory_store_map";
+import { userMemoryStoreMap } from "./user_map";
 
 export const vectorSaveAndSearch = async (chunksArray: any, prompt: string, username: string) => {
     const embeddings = new GoogleGenerativeAIEmbeddings({
