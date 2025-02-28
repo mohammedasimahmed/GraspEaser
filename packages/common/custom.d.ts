@@ -1,4 +1,5 @@
 import {
+  UserChat,
   UserFormInput,
   UserInputBaseData,
   UserTextInputData,
@@ -21,6 +22,10 @@ export interface TextRequest extends Express.Request {
 
 export interface UserFormRequest extends Express.Request {
   body: UserFormInput
+}
+
+export interface ChatRequest extends Express.Request {
+  body: UserChat
 }
 
 export interface AuthenticateRequest extends Express.Request {

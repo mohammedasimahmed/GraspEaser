@@ -24,3 +24,7 @@ export interface UserFormInput {
   email: string,
   password: string
 }
+
+export interface UserChat {
+  prompt: string;
+}
