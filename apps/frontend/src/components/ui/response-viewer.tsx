@@ -1,18 +1,32 @@
 "use client"
 import React from 'react'
 import LoadingText from './loading-text';
-import { responseStateAtom } from '@/atoms/user-input';
-import { useAtomValue } from 'jotai';
+import { displayAtom, responseStateAtom } from '@/atoms/user-input';
+import { useAtom, useAtomValue } from 'jotai';
 
 const ResponseViewer = () => {
   const responseState = useAtomValue(responseStateAtom);
-  const { loading, recieved, content } = responseState;
+  const { loading, recieved } = responseState;
+  const [display] = useAtom(displayAtom);
   if (loading) {
     return <><LoadingText /></>
   }
 
   if (recieved) {
-    return <div className='px-8 text-slate-800'>{content}</div>
+    return (
+      <div>
+        {
+          display.map((value, idx) => {
+            return (
+              <div className="w-full" key={idx}>
+                <div className={`w-full ${idx % 2 === 0 ? "text-left" : "text-right"}`}>{idx % 2 === 0 ? "AI ASSISTANT" : "HUMAN"}</div>
+                <div className={`w-full px-8 text-slate-800 ${idx % 2 === 0 ? "text-left" : "text-right"}`}>{value}</div>
+              </div>
+            )
+          })
+        }
+      </div>
+    )
   }
 
   return (

@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { FeedStateAtom, inputTypeAtom, InputTypes, possibleWordCounts, responseStateAtom, UserInputProps, usernameAtom, wordCountAtom } from "@/atoms/user-input";
+import { displayAtom, FeedStateAtom, inputTypeAtom, InputTypes, possibleWordCounts, responseStateAtom, UserInputProps, usernameAtom, wordCountAtom } from "@/atoms/user-input";
 import { useAtom } from 'jotai';
 import env from '@/config/env';
 import Button from './button';
@@ -42,6 +42,7 @@ const UserInputContainer = ({ type }: { type: InputTypes }) => {
     const [feedState] = useAtom(FeedStateAtom)
     const [, setResponseState] = useAtom(responseStateAtom)
     const [, setUsername] = useAtom(usernameAtom);
+    const [, setDisplay] = useAtom(displayAtom);
     const dispatchSetUsername: React.Dispatch<React.SetStateAction<string>> = (value) => {
         setUsername(value);
     };
@@ -141,6 +142,7 @@ const UserInputContainer = ({ type }: { type: InputTypes }) => {
             recieved: true,
             content: result.content_simplified,
         })
+        setDisplay((prevDisplay) => [...prevDisplay, result.content_simplified]);
     }
 
     return (
