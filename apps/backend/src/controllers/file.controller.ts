@@ -4,14 +4,21 @@ import { GoogleAIFileManager, FileState } from "@google/generative-ai/server";
 import env from "../config/env";
 import { google_llm_model, remove_temp_file } from "../lib/gen_ai";
 import { generate_prompt } from "../lib/prompts";
-import { UserInputBaseData } from "@repo/common/request";
 import { inputFileSchema } from "@repo/common/zod/input_file";
 import { ApiError } from "../lib/errors/api_error";
+import { loadAndSplit } from "../lib/loadAndSplit";
+import { generate_output } from "../lib/generate_output";
+import { isPdfOrDocx } from "../lib/is_pdf_or_docx";
+import { UserFormInput } from "@repo/common/request";
 
 const fileManager = new GoogleAIFileManager(env.API_KEY);
 
+interface FileRequest extends Request {
+  user?: UserFormInput
+}
+
 export async function file_handler(
-  req: Request,
+  req: FileRequest,
   res: Response,
   next: NextFunction,
 ) {
@@ -19,6 +26,7 @@ export async function file_handler(
   const data = req.body;
   const options = await JSON.parse(data.options)
   const validate = inputFileSchema.safeParse({ file, options });
+  const username = req.user?.username;
   if (!validate.success) {
     const wrongTypeError = new ApiError(
       "Server received data with wrong data type",
@@ -36,6 +44,23 @@ export async function file_handler(
     next(noFileError);
     return;
   }
+
+  const type = isPdfOrDocx(file?.path);
+
+  if (type !== 'other') {
+    try {
+      const chunksArray = await loadAndSplit(file?.path, type);
+      const result = await generate_output(chunksArray, username as string, options);
+
+      res.status(HttpStatusCode.OK).json({
+        content_simplified: result
+      });
+    } catch (error) {
+      next(error);
+    }
+    return;
+  }
+
 
   try {
     const fileResult = await fileManager.uploadFile(file?.path, {
