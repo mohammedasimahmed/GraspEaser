@@ -11,7 +11,7 @@ const LoginOnStart = () => {
     };
     useEffect(() => {
         getAccessToken({ setUsername: dispatchSetUsername })
-    }, [dispatchSetUsername])
+    }, [])
 
     return <></>
 }
