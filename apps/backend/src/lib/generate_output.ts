@@ -2,8 +2,9 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { vectorSaveAndSearch } from "./vectorSaveAndSearch";
 import { generate_prompt } from "./prompts";
 import { UserInputDataOptions } from "@repo/common/request";
+import { Document } from "langchain/document";
 
-export async function generate_output(chunksArray: any, username: string, options: UserInputDataOptions) {
+export async function generate_output(chunksArray: Document[], username: string, options: UserInputDataOptions) {
     const prompt = generate_prompt(options);
     const searches = await vectorSaveAndSearch(chunksArray, prompt, username);
 
@@ -23,6 +24,6 @@ export async function generate_output(chunksArray: any, username: string, option
         ["system", prompt],
         ["human", content],
     ]);
-    
+
     return ai_response.content.toString();
 }
