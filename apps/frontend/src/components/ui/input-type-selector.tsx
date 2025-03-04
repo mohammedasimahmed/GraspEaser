@@ -1,16 +1,22 @@
 "use client";
-import { displayAtom, inputTypeAtom, InputTypes, InputTypesArray } from '@/atoms/user-input';
-import { useAtom } from 'jotai';
+import { displayAtom, inputTypeAtom, InputTypes, InputTypesArray, responseStateAtom } from '@/atoms/user-input';
+import { useAtom, useSetAtom } from 'jotai';
 import React from 'react'
 import InputContainer from './user-input-container';
 
 const InputTypeSelector = () => {
   const [inputType, setInputType] = useAtom(inputTypeAtom);
   const [, setDisplay] = useAtom(displayAtom);
-  
+  const setResponseState = useSetAtom(responseStateAtom);
+
   function changeInputType(value: InputTypes) {
     setInputType(value)
     setDisplay([]);
+    setResponseState({
+      loading: false,
+      recieved: false,
+      content: "",
+    })
   }
 
   return (
