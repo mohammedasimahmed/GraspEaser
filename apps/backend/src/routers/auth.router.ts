@@ -6,9 +6,9 @@ import { logout_handler } from "../controllers/logout.handler";
 
 const auth_router = express.Router();
 
-auth_router.post("/signup", signup_handler)
-auth_router.post("/signin", signin_handler)
-auth_router.get("/refresh", refresh_handler)
-auth_router.get("/logout", logout_handler)
+auth_router.post("/signup", signup_handler);
+auth_router.post("/signin", signin_handler);
+auth_router.get("/refresh", refresh_handler);
+auth_router.get("/logout", logout_handler);
 
 export default auth_router;

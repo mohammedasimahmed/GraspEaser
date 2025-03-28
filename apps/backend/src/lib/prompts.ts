@@ -12,7 +12,7 @@ import {
 } from "@repo/common/request";
 
 const BASE_PROMPT =
-  "You are an intelligent assistant. Answer my question carefully.";
+  "You are an intelligent assistant. Answer my question carefully in markdown format.";
 
 const input_type_prompt_map: Record<InputTypes, string> = {
   text: "Explain the provided text to me",

@@ -12,6 +12,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.4.2",
     "jotai": "^2.11.3",
+    "markdown-to-jsx": "^7.7.4",
     "motion": "^12.4.1",
     "next": "15.1.6",
     "react": "^19.0.0",

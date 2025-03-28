@@ -1,19 +1,21 @@
-"use client"
-import { usernameAtom } from '@/atoms/user-input';
-import { getAccessToken } from '@/lib/getAccessToken';
-import { useAtom } from 'jotai';
-import React, { useEffect } from 'react'
+"use client";
+import { usernameAtom } from "@/atoms/user-input";
+import { getAccessToken } from "@/lib/getAccessToken";
+import { useAtom } from "jotai";
+import React, { useEffect } from "react";
 
 const LoginOnStart = () => {
-    const [, setUsername] = useAtom(usernameAtom);
-    const dispatchSetUsername: React.Dispatch<React.SetStateAction<string>> = (value) => {
-        setUsername(value);
-    };
-    useEffect(() => {
-        getAccessToken({ setUsername: dispatchSetUsername })
-    }, [])
+  const [, setUsername] = useAtom(usernameAtom);
+  const dispatchSetUsername: React.Dispatch<React.SetStateAction<string>> = (
+    value,
+  ) => {
+    setUsername(value);
+  };
+  useEffect(() => {
+    getAccessToken({ setUsername: dispatchSetUsername });
+  }, [dispatchSetUsername]);
 
-    return <></>
-}
+  return <></>;
+};
 
-export default LoginOnStart
+export default LoginOnStart;

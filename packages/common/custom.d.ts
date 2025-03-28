@@ -21,13 +21,13 @@ export interface TextRequest extends Express.Request {
 }
 
 export interface UserFormRequest extends Express.Request {
-  body: UserFormInput
+  body: UserFormInput;
 }
 
 export interface ChatRequest extends Express.Request {
-  body: UserChat
+  body: UserChat;
 }
 
 export interface AuthenticateRequest extends Express.Request {
-  headers?: { authorization?: string }
+  headers?: { authorization?: string };
 }

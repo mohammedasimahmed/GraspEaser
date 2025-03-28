@@ -2,6 +2,7 @@
   "name": "@repo/common",
   "version": "0.0.0",
   "private": true,
+  "type": "commonjs",
   "exports": {
     "./request": "./request.ts",
     "./custom": "./custom.d.ts",
@@ -11,6 +12,9 @@
     "./zod/input_url":"./zod/input_url.ts",
     "./zod/input_form": "./zod/input_form.ts",
     "./zod/chat": "./zod/chat.ts"
+  },
+  "scripts": {
+    "build": "tsc"
   },
   "devDependencies": {
     "typescript": "^5.7.3"

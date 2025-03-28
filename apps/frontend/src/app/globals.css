@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+code {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  font-size: small;
+
+  background-color: rgba(2, 114, 75, 0.677);
+  color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+div.code-block code.inline-code {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  font-size: medium;
+
+  background-color: rgb(18, 16, 46);
+
+  color: rgb(223, 252, 242);
+}
+
+div.code-block {
+  background-color: rgb(18, 16, 46);
+  padding: 1rem 1rem;
+  border-radius: 1rem;
+  margin: 1rem 0;
+}
+
+ul.code-element {
+  list-style-type: disc;
+}
+
+ol.code-element {
+  list-style-type: decimal;
+}
+
+li.code-element {
+  margin-left: 1rem;
+}
+
+ul.code-element, ol.code-element {
+  margin: 0.5rem 0rem;
+
+}

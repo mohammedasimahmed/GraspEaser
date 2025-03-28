@@ -14,7 +14,7 @@ import { UserFormInput } from "@repo/common/request";
 const fileManager = new GoogleAIFileManager(env.API_KEY);
 
 interface FileRequest extends Request {
-  user?: UserFormInput
+  user?: UserFormInput;
 }
 
 export async function file_handler(
@@ -24,7 +24,7 @@ export async function file_handler(
 ) {
   const file = req.file;
   const data = req.body;
-  const options = await JSON.parse(data.options)
+  const options = await JSON.parse(data.options);
   const validate = inputFileSchema.safeParse({ file, options });
   const username = req.user?.username;
   if (!validate.success) {
@@ -32,8 +32,8 @@ export async function file_handler(
       "Server received data with wrong data type",
       HttpStatusCode.BAD_REQUEST,
     );
-    next(wrongTypeError)
-    return
+    next(wrongTypeError);
+    return;
   }
 
   if (!file || !file.path || !file.filename) {
@@ -47,20 +47,23 @@ export async function file_handler(
 
   const type = isPdfOrDocx(file?.path);
 
-  if (type !== 'other') {
+  if (type !== "other") {
     try {
       const chunksArray = await loadAndSplit(file?.path, type);
-      const result = await generate_output(chunksArray, username as string, options);
+      const result = await generate_output(
+        chunksArray,
+        username as string,
+        options,
+      );
 
       res.status(HttpStatusCode.OK).json({
-        content_simplified: result
+        content_simplified: result,
       });
     } catch (error) {
       next(error);
     }
     return;
   }
-
 
   try {
     const fileResult = await fileManager.uploadFile(file?.path, {

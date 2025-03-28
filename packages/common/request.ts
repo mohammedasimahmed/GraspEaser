@@ -20,9 +20,9 @@ export interface UserURLInputData extends UserInputBaseData {
 }
 
 export interface UserFormInput {
-  username: string,
-  email: string,
-  password: string
+  username: string;
+  email: string;
+  password: string;
 }
 
 export interface UserChat {
