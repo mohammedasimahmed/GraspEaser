@@ -18,5 +18,15 @@
     "linkedin": "",
     "photo": "/images/asim.jpg",
     "description": "Passionate full stack developer, Software engineering intern at Cisco, Top 50 @ Adobe Gensolve Hackathon."
+  },
+  {
+    "name": "Lakshya Khandelwal",
+    "college": "Indian Institute of Information Technology, Lucknow",
+    "portfolio_url": "",
+    "github": "",
+    "twitter": "",
+    "linkedin": "",
+    "photo": "/images/lakshya.jpg",
+    "description": "Passionate full stack developer, Software Development Engineering intern at Flipkart, Placement Coordinator at IIIT Lucknow, Eifer Coordinator at IIIT Lucknow."
   }
 ]
