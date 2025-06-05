@@ -4,7 +4,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from "node:fs/promises";
 
 export const google_llm_langchain = new ChatGoogleGenerativeAI({
-  model: "gemini-1.5-flash-001",
+  model: "gemini-2.0-flash",
   temperature: 0,
   maxRetries: 2,
   apiKey: env.API_KEY,
@@ -12,7 +12,7 @@ export const google_llm_langchain = new ChatGoogleGenerativeAI({
 
 const google_genai = new GoogleGenerativeAI(env.API_KEY);
 export const google_llm_model = google_genai.getGenerativeModel({
-  model: "gemini-1.5-flash",
+  model: "gemini-2.0-flash",
 });
 
 export const remove_temp_file = async (filePath: string) => {
