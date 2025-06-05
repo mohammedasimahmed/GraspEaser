@@ -23,7 +23,7 @@ export async function scrape_page_and_handle_text(
   username: string,
 ) {
   try {
-    const content: string = await scrape_webpage(url);
+    const content: string = await scrape_webpage(url) as string;
     console.log("Content is");
     console.log(content);
     const response = await text_content_handler(content, options, username);

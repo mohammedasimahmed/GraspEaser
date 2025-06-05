@@ -1,23 +1,20 @@
-import puppeteer from "puppeteer";
-import * as cheerio from "cheerio";
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 export async function scrape_webpage(url: string) {
-  const browser = await puppeteer.launch({ headless: true, timeout: 30000 });
-  const page = await browser.newPage();
+  try {
+    const { data: html } = await axios.get(url);
+    const $ = cheerio.load(html);
 
-  let maxTries = 10;
-  // while (maxTries--) {
-  await page.goto(url, { waitUntil: "networkidle2", timeout: 30000 });
-  // }
+    // Remove script and style tags
+    $('script, style, noscript').remove();
 
-  const html = await page.content();
+    // Extract and clean text
+    const text = $('body').text();
+    const cleanText = text.replace(/\s+/g, ' ').trim();
 
-  const $ = cheerio.load(html);
-
-  let articleText = $("body").text().trim();
-  articleText = articleText.replace(/\s+/g, " ").trim();
-
-  await browser.close();
-
-  return articleText;
+    return cleanText;
+  } catch (error) {
+    return null;
+  }
 }
